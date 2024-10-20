@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vulnerable to XSS</title>
+  </head>
+  <body>
+    <h1>Enter Your Message</h1>
+
+    <!-- Form untuk memasukkan pesan -->
+    <form id="messageForm">
+      <label for="message">Message:</label>
+      <input type="text" id="message" name="message" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <!-- Menampilkan pesan tanpa sanitasi -->
+    <div>
+      <h2>Your Message:</h2>
+      <p id="displayMessage"></p>
+    </div>
+
+    <script>
+      // Mengambil input pengguna dari form
+      document.getElementById("messageForm").onsubmit = function (e) {
+        e.preventDefault(); // Mencegah form dikirim
+        var message = document.getElementById("message").value;
+
+        // Menampilkan input pengguna langsung tanpa sanitasi (vulnerable to XSS)
+        document.getElementById("displayMessage").innerHTML = message;
+      };
+    </script>
+  </body>
+</html>
